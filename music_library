@@ -78,6 +78,15 @@ def main():
         {"name": "Rumours", "band": "Fleetwood Mac", "genre": "Rock", "rating": 5.0},
     ]
 
+    def print_album_info(**info):
+    """Display album information from keyword arguments."""
+    for key, value in info.items():
+        print(f"{key}: {value}")
+        return info
+
+    print("\nAlbum info:")
+    print_album_info(Album='Thriller', Artist='Michael Jackson', Year=1982)
+
     # Demonstrate mutability: Change ratings below 6 to 6
     print("\nModifying ratings below 6 to 6:")
     for i in range(len(albums)):
