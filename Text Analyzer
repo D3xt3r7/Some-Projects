@@ -22,13 +22,13 @@ class TextAnalyzer(object):
             return freqDf[word]
         else:
             return 0
-Test
-if __name__ == "__main__":
-    try:
-        givenstring = "Lorem ipsum dolor! diam amet, consetetur Lorem magna. sed diam nonumy eirmod tempor. diam et labore? et diam magna. et diam amet."
-        analyzer = TextAnalyzer(givenstring)
-        print("Oczyszczony tekst (lista słów):", analyzer.fText)
-        print("\nCzęstotliwość wszystkich słów:\n", analyzer.freqAll())
-        print("Częstotliwość słowa 'diam':", analyzer.freqSpecWord("diam"))
-    except Exception as e:
-        print(f"Błąd: {e}")
+#Test
+    if __name__ == "__main__":
+        try:
+            givenstring = "Lorem ipsum dolor! diam amet, consetetur Lorem magna. sed diam nonumy eirmod tempor. diam et labore? et diam magna. et diam amet."
+            analyzer = TextAnalyzer(givenstring)
+            print("Oczyszczony tekst (lista słów):", analyzer.fText)
+            print("\nCzęstotliwość wszystkich słów:\n", analyzer.freqAll())
+            print("Częstotliwość słowa 'diam':", analyzer.freqSpecWord("diam"))
+        except Exception as e:
+            print(f"Błąd: {e}")
