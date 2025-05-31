@@ -3,58 +3,43 @@ import pandas as pd
 
 class TextAnalyzer:
     def __init__(self, text):
-        """
-        Initializes a TextAnalyzer object with the provided text.
-        
-        Args:
-            text (str): Text to analyze.
-        """
         try:
-            # Remove punctuation, convert to lowercase, and split into words
             if not isinstance(text, str):
-                raise TypeError("Text must be a string!")
-            self.clean_txt = text.translate(str.maketrans('', '', string.punctuation)).lower().split()
-            self.original_txt = text
+                raise TypeError("Tekst musi być ciągiem znaków!")
+            self.clean_text = text.translate(str.maketrans('', '', string.punctuation))
+            self.fText = self.clean_text.lower().split()
+            self.original_text = text
         except (AttributeError, TypeError) as e:
-            print(f"Error: {e}")
-            self.clean_txt = []
-            self.original_txt = ""
+            print(f"Błąd: {e}")
+            self.clean_text = ""
+            self.fText = []
+            self.original_text = ""
 
-    def get_word_count(self):
-        """
-        Returns the number of words in the text.
-        
-        Returns:
-            int: Number of words.
-        """
-        return len(self.clean_txt)
-
-    def get_frequent_words(self, min_count=1):
-        """
-        Returns a DataFrame with word frequency.
-        
-        Args:
-            min_count (int): Minimum number of word occurrences.
-        
-        Returns:
-            pandas.DataFrame: DataFrame with columns 'word' and 'frequency'.
-        """
+    def freqAll(self):
         try:
             freq = {}
-            for word in self.clean_txt:
+            for word in self.fText:
                 freq[word] = freq.get(word, 0) + 1
-            freq_dict = {word: count for word, count in freq.items() if count >= min_count}
-            return pd.DataFrame(list(freq_dict.items()), columns=['word', 'frequency'])
+            return pd.DataFrame(list(freq.items()), columns=['słowo', 'liczba_wystąpień'])
         except Exception as e:
-            print(f"Error during frequency analysis: {e}")
+            print(f"Błąd: {e}")
             return pd.DataFrame()
+
+    def freqSpecWord(self, word):
+        try:
+            freq_df = self.freqAll()
+            return freq_df[freq_df['słowo'] == word.lower()]['liczba_wystąpień'].iloc[0] if word.lower() in freq_df['słowo'].values else 0
+        except Exception as e:
+            print(f"Błąd: {e}")
+            return 0
 
 # Test
 if __name__ == "__main__":
     try:
-        text = "This is a test! This is an example."  
-        analyzer = TextAnalyzer(text)
-        print("Word count:", analyzer.get_word_count())
-        print("\nFrequent words:\n", analyzer.get_frequent_words())
+        givenstring = "Lorem ipsum dolor! diam amet, consetetur Lorem magna. sed diam nonumy eirmod tempor. diam et labore? et diam magna. et diam amet."
+        analyzer = TextAnalyzer(givenstring)
+        print("Oczyszczony tekst (lista słów):", analyzer.fText)
+        print("\nCzęstotliwość wszystkich słów:\n", analyzer.freqAll())
+        print("Częstotliwość słowa 'diam':", analyzer.freqSpecWord("diam"))
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Błąd: {e}")
