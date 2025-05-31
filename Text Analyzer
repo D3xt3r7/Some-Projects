@@ -18,7 +18,7 @@ class TextAnalyzer(object):
         
     def freqSpecWord(self, word):
         freqDf=self.freqAll()
-        if word in word in freqDf:
+        if word in freqDf:
             return freqDf[word]
         else:
             return 0
